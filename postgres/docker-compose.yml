@@ -1,29 +1,13 @@
 version: '3'
 
 services:
-  teste-postgres-compose:
+  postgres:
+    restart: always
+    container_name: postgres
     image: postgres
     environment:
-      POSTGRES_PASSWORD: "Postgres2021!"
+      POSTGRES_PASSWORD: "pass@123!"
     ports:
-      - "15432:5432"
+      - "5432:5432"
     volumes:
-      - /home/danilolacerda/projects/docker-composes/postgres/PostgreSQL:/var/lib/postgresql/data 
-    networks:
-      - postgres-compose-network
-      
-  teste-pgadmin-compose:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "danilo.lacerda@totvs.com.br"
-      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2021!"
-    ports:
-      - "16543:80"
-    depends_on:
-      - teste-postgres-compose
-    networks:
-      - postgres-compose-network
-
-networks: 
-  postgres-compose-network:
-    driver: bridge
+      - ./data:/var/lib/postgresql/data
